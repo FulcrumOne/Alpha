@@ -57,6 +57,7 @@ private extension MainView_Rewards {
         }
         .background(Color.backgroundSecondary)
         .mask(Rectangle().cornerRadius(12))
+        .animation(nil, value: rewardInformation.transactions.count)
     }
 }
 

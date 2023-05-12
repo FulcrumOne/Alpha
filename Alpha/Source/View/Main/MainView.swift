@@ -17,6 +17,7 @@ struct MainView: View {
 
     var body: some View {
         createContentView()
+            .id(stateStore.openedTransaction == nil)
             .ignoresSafeArea(.all, edges: .bottom)
             .navigationBarTitle(getNavigationBarTitle(), displayMode: stateStore.openedTransaction == nil ? .automatic : .inline)
             .navigationBarBackButtonHidden(true)
@@ -35,8 +36,8 @@ private extension MainView {
     }
     @ViewBuilder func createContentView() -> some View {
         switch stateStore.openedTransaction {
-            case .some(let transaction): TransactionDetailsView(transaction: transaction)
-            case nil: MainView_Rewards()
+            case .some(let transaction): TransactionDetailsView(transaction: transaction).transition(.asymmetric(insertion: .move(edge: .trailing).combined(with: .opacity), removal: .move(edge: .trailing).combined(with: .opacity)))
+            case nil: MainView_Rewards().transition(.asymmetric(insertion: .move(edge: .leading).combined(with: .opacity), removal: .move(edge: .leading).combined(with: .opacity)))
         }
     }
 }
